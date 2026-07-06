@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- SWIPER CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper-bundle.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- FAVICON -->
+
+
+    <!-- Remixicon -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"> -->
+
+
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="blob-animate"></div>
+
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Phishyly</a>
+
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li>
+                        <a href="#about" class="nav__link">Phishing</a>
+                    </li>
+                    <li>
+                        <a href="#projects" class="nav__link">Belajar</a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="nav__link">Kasus</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+     <main class="main">
+        <!-- CUSTOM CURSOR -->
+         <div class="cursor"></div>
+
+
+        <!-- HOME2 -->
+         <section class="homee">
+            <img src="{{ url_for('static', filename='img/bg.png') }}" alt="" class="homee__bg">
+            <div class="homee__boxes">
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+                <div class="homee__box"></div>
+            </div>
+
+            <div class="homee__container container">
+                <div class="homee__data">
+                    <i class="ri-links-line homee__icon"></i>
+                    <h1 class="homee__title">Identifikasi Link Berbahaya <br> Dengan <span>Teknologi AI</span></h1>
+                    <p class="homee__description">
+                        "Gunakan teknologi Machine Learning untuk membedah struktur URL 
+                        dan mengetahui tingkat risiko keamanan dalam hitungan detik."
+                    </p>
+                                        
+                    <div > 
+                        <form action="/" method="POST"  class="form__container">
+                            <div class="search" id="search-bar">
+                                <input name="url" type="search" placeholder="Masukkan Link..." class="search__input" required>
+
+                                <div class="search__button" id="search-button">
+                                    <i class="ri-links-line search__icon"></i>
+                                    <i class="ri-close-line search__close"></i>
+                                </div>
+                            </div>
+                            <button type="submit" class="homee__buttons button__cb">
+                                Cek Link
+                            </button>
+                           
+                        </form>                        
+                    </div>                    
+                </div>                
+            </div>            
+         </section>
+
+         <!-- services -->
+        {% if url and url != "" %}
+         <section class="services section">
+            <h2 class="section__title">Hasil <span>Analisis</span></h2>
+
+            <div class="services__container container grid">
+                <div class="outer-card" style="--good-width: {{ good_prob }}%; --bad-width: {{ bad_prob }}%;">
+                    <div class="card-header">
+                        <span class="header-title">Analisis Keamanan</span>
+                    </div>
+                            
+                            <div class="inner-card">
+                                <button class="info__button" id="popoverBtn">
+                                    <i class="ri-error-warning-fill"></i> 
+                                
+                                    <div class="popover" id="popover">
+                                        <h4>Tentang Skor Risiko</h4>
+                                        <p>Persentase ini menunjukkan tingkat probabilitas 
+                                            bahaya yang dihitung secara real-time oleh 
+                                            teknologi AI. Skor dihasilkan dengan membedah 
+                                            struktur unik link, seperti penggunaan simbol 
+                                            mencurigakan atau nama domain yang menyesatkan. 
+                                            Semakin tinggi persentasenya, semakin besar 
+                                            kemiripan link tersebut dengan pola serangan 
+                                            phishing yang bertujuan mencuri data pribadi Anda.</p>
+                                    </div>
+                                
+                                </button>
+
+                                <div class="main-score">
+                                    
+                                    <h1 class="score-value">{{ bad_prob }}%</h1>
+                                    <p class="score-label">Skor Risiko</p>
+                                </div>
+                                
+                                <div class="status-badge-container">
+                                    {% if bad_prob > 70 %}
+                                        <div class="status-badge phishing">Status: PHISHING</div>
+                                    {% elif bad_prob > 49 %}
+                                        <div class="status-badge waspada">Status: WASPADA</div>
+                                    {% else %}
+                                        <div class="status-badge aman">Status: AMAN</div>
+                                    {% endif %}
+                                </div>
+                                <div class="input-link-wrapper">
+                                    <!-- <div class="link-box"> -->
+                                        <span class="link-label">Probability:</span>
+                                    <!-- </div> -->
+                                </div>
+                                                                
+                                <div class="prob-section">
+                                    <div class="prob-item">
+                                        <div class="prob-info"><span>Aman</span> <span>{{ good_prob }}%</span></div>
+                                        <div class="bar-bg"><div class="bar-fill green"></div></div>
+                                    </div>
+                                    <div class="prob-item">
+                                        <div class="prob-info"><span>Bahaya</span> <span>{{ bad_prob }}%</span></div>
+                                        <div class="bar-bg"><div class="bar-fill red"></div></div>
+                                    </div>
+                                </div>                                
+                            </div>
+                </div>
+                        <div class="outer-card" style="--good-width: {{ good_prob }}%; --bad-width: {{ bad_prob }}%;">
+                            <div class="card-header">
+                                <span class="header-title">Rekomendasi Tindakan</span>
+                            </div>
+                            
+                            <div class="inner-card">
+                                <!-- Skor Risiko -->
+                                <div class="input-link-wrapper">
+                                    <div class="link-box">
+                                        <span class="link-label">Link:</span>
+                                        <span class="link-url">{{ url }}</span>
+                                    </div>
+                                </div>
+
+                                
+                                <!-- Probabilitas -->
+                                <div class="analysis-details">
+                                    <p class="section-label">Fitur Terdeteksi:</p>
+                                    <div class="tags-grid">
+                                        {% if tags %}
+                                            {% for tag in tags %}
+                                                <span class="tag-item">{{ tag }}</span>
+                                            {% endfor %}
+                                        {% else %}
+                                            <span class="tag-item empty">Normal</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="action-box">
+                                <p class="section-label">Saran Keamanan:</p>
+                                <div>
+                                    <p class="msg-text">
+                                        {% if bad_prob > 70 %}
+                                            <strong>Bahaya!</strong> Situs ini sangat berisiko. Jangan masukkan data pribadi atau kredensial apa pun.
+                                        {% elif bad_prob > 40 %}
+                                            <strong>Waspada!</strong> Terdapat indikasi mencurigakan. Periksa kembali keaslian domain secara teliti.
+                                        {% else %}
+                                            <strong>Aman.</strong> Situs tidak menunjukkan ciri-ciri phishing yang umum terdeteksi.
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+            </div>
+         </section>
+        {% endif %}
+
+
+        <!-- ABOUT -->
+         <section class="about section" id="about">
+            <div class="about__shadow"></div>
+
+            <div class="about__container container grid">
+                <div class="about__data">
+                    <h2 class="section__title">
+                        <span>Indoensia</span>
+                        <br> Darurat Phishing
+                    </h2>
+
+                    <p class="about__description">
+                        Tahukah Anda? Laporan terbaru menunjukkan ada lebih dari <b>1 juta serangan siber</b> yang terdeteksi di Indonesia setiap harinya, di mana  <b> link phishing</b>
+                        menjadi senjata utamanya. Penipuan ini telah merugikan ribuan orang mulai dari kehilangan akun sosial media hingga saldo rekening bank.
+                        Sistem ini hadir untuk membantu Anda tetap waspada di tengah maraknya kejahatan digital yang mengincar masyarakat awam setiap saat.
+                    </p>
+
+                </div>
+
+                <div class="about__image">
+                    <div class="blob-animate"></div>
+                    <div class="blob-animate"></div>
+                    <img src="{{ url_for('static', filename='img/phishing.png') }}" alt="image" class="about__perfil">
+                </div>
+            </div>
+         </section>
+
+        <!-- PROJECTS -->
+         <section class="projects section" id="projects">
+            <h2 class="section__title">
+                Kenali & <br>
+                <span>Lawan Phishing</span>
+            </h2>
+
+            <div class="projects__container container grid">
+                <div class="projects__swiper swiper">
+                    <div class="swiper-wrapper">
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>01</h1>
+                                <h3>Edukasi</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Mengenal <br> Phishing</h1>
+                                <p class="projects__subtitle">Inti Pembahasan:</p>
+                                <p class="projects__description">Memahami metode penipuan digital yang mencuri data melalui link palsu.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/bagian4.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" id="" data-index="0">
+                                    <i class="ri-arrow-right-up-long-line"></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>02</h1>
+                                <h3>Anatomi</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Struktur <br> Link Berbahaya</h1>
+                                <p class="projects__subtitle">Inti Pembahasan:</p>
+                                <p class="projects__description">Mengenali ciri URL mencurigakan dari penggunaan simbol dan subdomain.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/gambar2.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" data-index="1">
+                                    <i class="ri-arrow-right-up-long-line"></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>03</h1>
+                                <h3>Tips</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Protokol <br> Keamanan</h1>
+                                <p class="projects__subtitle">Inti Pembahasan</p>
+                                <p class="projects__description">Cara memverifikasi link secara mandiri sebelum memasukkan data pribadi sensitif.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/gambar3.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" data-index="2">
+                                    <i class="ri-arrow-right-up-long-line"></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>04</h1>
+                                <h3>Cara Kerja</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Deteksi <br> Berbasis AI </h1>
+                                <p class="projects__subtitle">Inti Pembahasan:</p>
+                                <p class="projects__description">Sistem menganalisis fitur URL secara otomatis menggunakan algoritma cerdas.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/bag11.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" data-index="3">
+                                    <i class="ri-arrow-right-up-long-line" ></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>05</h1>
+                                <h3>Darurat</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Jika <br> Terlanjur Klik</h1>
+                                <p class="projects__subtitle">Inti Pembahasan:</p>
+                                <p class="projects__description">Langkah segera mengamankan akun dan mengganti kata sandi yang bocor.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/bag55.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" data-index="4">
+                                    <i class="ri-arrow-right-up-long-line" ></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="projects__card swiper-slide">
+                            <div class="blob"></div>
+                            <div class="projects__number">
+                                <h1>06</h1>
+                                <h3>Peringatan</h3>
+                            </div>
+                            <div class="projects__data">
+                                <h1 class="projects__title">Bahaya <br> Pencurian Data</h1>
+                                <p class="projects__subtitle">Inti Pembahasan:</p>
+                                <p class="projects__description">Dampak buruk pencurian identitas dan penyalahgunaan akun bagi pengguna.</p>
+                            </div>
+
+                            <div class="projects__image">
+                                <img src="{{ url_for('static', filename='img/bag66.jpg') }}" alt="image" class="projects__img">
+                                <a href="#" target="_blank" class="projects__button open-popup" data-index="5">
+                                    <i class="ri-arrow-right-up-long-line"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+               
+                </div>
+            </div>
+         </section>
+
+        <!-- WORK -->
+         <section class="work section">
+            <h2 class="section__title">
+                <span>Menghindari</span>
+                <br>Terjadi Phishing
+            </h2>
+
+            <div class="work__container container grid">
+                
+                <div class="work__area">
+                    <div class="work__line"></div>
+
+                    <!-- Content Experience -->
+                     <div class="work__content work-active" data-content id="experience">
+                        <div class="work__card">
+                            <div class="work__data">
+                                <div>
+                                    <h1 class="work__title">Jadilah <br> Curiga</h1>
+                                    <h3 class="work__subtitle">Waspada pesan mendadak</h3>
+                                </div>
+
+                                <h2 class="work__year">01</h2>
+                            </div>
+
+                            <p class="work__description">
+                                Selalu curiga pada pesan yang meminta tindakan cepat atau mengancam akun akan diblokir. 
+                                Penipu menggunakan kepanikan sebagai senjata utama.
+                            </p>
+                        </div>
+
+                        <div class="work__card">
+                            <div class="work__data">
+                                <div>
+                                    <h1 class="work__title">Teliti <br> Tautan</h1>
+                                    <h3 class="work__subtitle">Periksa nama domain</h3>
+                                </div>
+
+                                <h2 class="work__year">02</h2>
+                            </div>
+
+                            <p class="work__description">
+                                Jangan langsung klik. Perhatikan ejaan nama situs; penipu sering mengganti 
+                                huruf dengan angka atau menambahkan simbol yang tidak lazim.
+                            </p>
+                        </div>
+
+                        <div class="work__card">
+                            <div class="work__data">
+                                <div>
+                                    <h1 class="work__title">Validasi <br> Sistem</h1>
+                                    <h3 class="work__subtitle">Manfaatkan fitur deteksi</h3>
+                                </div>
+
+                                <h2 class="work__year">03</h2>
+                            </div>
+
+                            <p class="work__description">
+                                Gunakan alat pemindai di aplikasi ini untuk membedah struktur link. 
+                                Biarkan kecerdasan buatan memastikan tautan itu aman sebelum Anda masuk.
+                            </p>
+                        </div>
+                        <div class="work__card">
+                            <div class="work__data">
+                                <div>
+                                    <h1 class="work__title">Jaga <br> Rahasia</h1>
+                                    <h3 class="work__subtitle">Lindungi kode OTP & PIN</h3>
+                                </div>
+
+                                <h2 class="work__year">04</h2>
+                            </div>
+
+                            <p class="work__description">
+                                Pihak resmi tidak pernah meminta kode keamanan melalui link atau telepon. 
+                                Jika ada yang memintanya, itu dipastikan adalah usaha pencurian data.
+                            </p>
+                        </div>
+                        <div class="work__card">
+                            <div class="work__data">
+                                <div>
+                                    <h1 class="work__title">Perkuat <br> Akun</h1>
+                                    <h3 class="work__subtitle">Aktifkan keamanan akun (2FA)</h3>
+                                </div>
+
+                                <h2 class="work__year">05</h2>
+                            </div>
+
+                            <p class="work__description">
+                                Pasang perlindungan tambahan di semua akun Anda. Keamanan berlapis 
+                                akan menjaga Anda tetap aman meskipun data pribadi tidak sengaja terungkap.
+                            </p>
+                        </div>
+                     </div>
+
+                </div>
+            </div>
+         </section>
+
+        <!-- TESTIMONIALS -->
+         <section class="testimonials section"  id="contact">
+            <h2 class="section__title">
+                <span>Waspada!!!</span>
+                <br> Kasus Nyata Di Sekitar Kita
+            </h2>
+
+            <div class="testimonials__container container grid">
+                <!-- Testimonials card 1 -->
+                 <div class="testimonials__content">
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/profil1.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name">Phishing WhatsApp</h2>
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://kumparan.com/kumparannews/2-pelaku-phising-via-pesan-whatsapp-ditangkap-korban-rugi-sampai-rp-261-juta-252GrgST3D6" >
+                                        Sumber: Kumparan News
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Dua pelaku ditangkap setelah menguras 
+                                Rp 261 juta lewat link phishing WhatsApp 
+                                yang menyamar sebagai layanan bank.
+                            </p>
+                        </div>
+                    </article>
+                    
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/phishing_sms.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name"> Phishing SMS</h2>
+                            
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://nasional.sindonews.com/read/1547423/13/12-orang-jadi-korban-sms-phising-fake-bts-kerugian-rp473-juta-1742857418/7" >
+                                        Sumber: SindoNews
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Dua belas korban rugi 473 juta rupiah akibat 
+                                sindikat SMS phishing menggunakan peralatan 
+                                BTS palsu di Jakarta.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/sindikat_phishing.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name">Sindikat Phishing</h2>
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://news.detik.com/berita/d-8457006/sindikat-phishing-tools-lintas-negara-dibongkar-sepasang-kekasih-dibekuk">
+                                        Sumber: detikNews
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Polri dan FBI membongkar sindikat penyedia perangkat 
+                                phishing lintas negara di Kupang yang merugikan 
+                                ribuan korban.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/phishing_perbankan.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name"> Phishing Perbankan</h2>
+                            
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://tirto.id/jejak-sindikat-phising-bank-dari-facebook-ke-pelosok-sumatra-hv6u" >
+                                        Sumber: tirto.id
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Sindikat pelosok Sumatra menyebarkan link palsu 
+                                melalui iklan Facebook untuk menguras saldo 
+                                rekening dan data perbankan korban.
+                            </p>
+                        </div>
+                    </article>
+                 </div>
+
+                <!-- Testimonials card 2-->
+                 <div class="testimonials__content testimonials__reverse">
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/profil1.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name">Phishing WhatsApp</h2>
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://kumparan.com/kumparannews/2-pelaku-phising-via-pesan-whatsapp-ditangkap-korban-rugi-sampai-rp-261-juta-252GrgST3D6" >
+                                        Sumber: Kumparan News
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Dua pelaku ditangkap setelah menguras 
+                                Rp 261 juta lewat link phishing WhatsApp 
+                                yang menyamar sebagai layanan bank.
+                            </p>
+                        </div>
+                    </article>
+                    
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/phishing_sms.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name"> Phishing SMS</h2>
+                            
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://nasional.sindonews.com/read/1547423/13/12-orang-jadi-korban-sms-phising-fake-bts-kerugian-rp473-juta-1742857418/7" >
+                                        Sumber: SindoNews
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Dua belas korban rugi 473 juta rupiah akibat 
+                                sindikat SMS phishing menggunakan peralatan 
+                                BTS palsu di Jakarta.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/sindikat_phishing.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name">Sindikat Phishing</h2>
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://news.detik.com/berita/d-8457006/sindikat-phishing-tools-lintas-negara-dibongkar-sepasang-kekasih-dibekuk">
+                                        Sumber: detikNews
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Polri dan FBI membongkar sindikat penyedia perangkat 
+                                phishing lintas negara di Kupang yang merugikan 
+                                ribuan korban.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="testimonials__card">
+                        <div class="blob"></div>
+
+                        <div class="testimonials__data">
+                            <img src="{{ url_for('static', filename='img/phishing_perbankan.jpg') }}" alt="image" class="testimonials__img">
+
+                            <h2 class="testimonials__name"> Phishing Perbankan</h2>
+                            
+
+                            <div class="testimonials__rating">
+                                <div class="testimonials__stars">
+                                    <a href="https://tirto.id/jejak-sindikat-phising-bank-dari-facebook-ke-pelosok-sumatra-hv6u" >
+                                        Sumber: tirto.id
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p>
+                                Sindikat pelosok Sumatra menyebarkan link palsu 
+                                melalui iklan Facebook untuk menguras saldo 
+                                rekening dan data perbankan korban.
+                            </p>
+                        </div>
+                    </article>
+
+                 </div>
+            </div>
+         </section>
+
+     </main>
+
+     <!-- FOOTER -->
+     <footer class="footer grid">
+        <div class="blob-animate"></div>
+
+        <div class="footer__copy">
+            All Right Reserved By <span>Yuyun R. Abbas</span> 
+        </div>
+
+        <div class="footer__year">
+            &#169; <span id="footer-year"></span>
+        </div>
+     </footer>
+
+     <!-- POPUP -->
+      <div class="popup">
+        <div class="popup__content">
+            <button class="close-btn">
+                <i class="ri-close-line"></i>
+            </button>
+            <h2 class="h2_popup">Apa Itu Phishing?</h2>
+            <div class="text_popup">
+                <p>Phishing adalah teknik pengelabuan di mana penyerang mencoba mendapatkan informasi sensitif seperti username, password, dan detail kartu kredit dengan menyamar sebagai entitas tepercaya dalam komunikasi elektronik.</p>
+            <ul>
+                <li>Metode Utama: Menggunakan email, pesan teks (Smishing), atau panggilan suara (Vishing).</li>
+            </ul>
+            </div>
+        </div>
+        
+      </div>
+
+     <!-- SCROLLREVEAL -->
+      <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script> 
+      
+     <!-- ANIME JS -->
+      <script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script>
+
+
+     <!-- SWIPER JS -->
+     <script src="{{ url_for('static', filename='js/swiper-bundle.min.js') }}"></script>
+
+     <!-- GSAP -->
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/SplitText.min.js"></script>
+
+     <!-- MAIN JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
